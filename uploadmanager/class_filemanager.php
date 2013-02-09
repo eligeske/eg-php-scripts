@@ -26,11 +26,11 @@ class filemanager {
  	
 	public function addFile($tmp_name,$name, $mimetype){
 		
-		$name = mysql_real_escape_string($name);		
+		$name = mysql_real_escape_string($name);
 		$mimetype = mysql_real_escape_string($mimetype);
 		
 		// validate
-		if(!$this->_validate()){
+		if(!$this->_validate($tmp_name,$name,$mimetype)){
 			throw new Exception("Missing Parameters", 1);
 		}
 		// get file extension
@@ -54,9 +54,8 @@ class filemanager {
 		
 	}
 	
-	private function _validate(){
-		
-		
+	private function _validate($tmp_name,$name,$mimetype){
+		return ($tmp_name == "" || $name == "" || $mimetype == "")?false:true;		
 	}
 	
 	private function _insertNewFile($storagename,$name,$extension,$mimetype){
